@@ -37,4 +37,22 @@ class Autor extends ModelBase
     {
         $this->activo = $activo;
     }
+    
+  public function serializar(): array
+  {
+    return [
+      'id' =>$this->getId(),
+      'nombre_apellido' => $this->getNombreApellido(),
+      'activo' => $this->getActivo(),
+    ];
+  }
+
+  public function deserializar(array $datos): ModelBase
+  {
+    return new self(
+      id: $datos['id'] === null ? 0 : $datos['id'],
+      nombre_apellido: $datos['nombre_apellido'],
+      activo: $datos['activo'],
+    );
+  }
 }

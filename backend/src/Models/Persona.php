@@ -17,19 +17,36 @@ class Persona extends ModelBase
         $this->dni = $dni;
     }
     // Métodos getter
-    public function getNombre()
+    public function getNombreApellido()
     {
         return $this->nombre_apellido;
     }
 
-    public function getDNI()
+    public function getDni()
     {
         return $this->dni;
     }
 
     // Métodos setter
-    public function setNombre($nuevoNombre)
+    public function setNombreApellido($nuevoNombre)
     {
         $this->nombre_apellido = $nuevoNombre;
     }
+
+
+  public function serializar(): array
+  {
+    return [
+      'dni' => $this->getDni(),
+      'nombre_apellido' => $this->getNombreApellido()
+    ];
+  }
+
+  public function deserializar(array $datos): ModelBase
+  {
+    return new self(
+      dni: $datos['dni'],
+      nombre_apellido: $datos['nombre_apellido'],
+    );
+  }
 }

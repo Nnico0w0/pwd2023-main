@@ -137,7 +137,5 @@ class LibroDAO implements InterfaceDAO
     }
     public static function borrar(string $id)
     {
-        $sql = 'DELETE FROM libros WHERE id=:id';
-        ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
 }

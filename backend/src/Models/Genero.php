@@ -36,4 +36,23 @@ class Genero extends ModelBase
     {
         $this->activo = $activo;
     }
+
+
+  public function serializar(): array
+  {
+    return [
+      'id' =>$this->getId(),
+      'descripcion' => $this->getDescripcion(),
+      'activo' => $this->getActivo(),
+    ];
+  }
+
+  public function deserializar(array $datos): ModelBase
+  {
+    return new self(
+      id: $datos['id'] === null ? 0 : $datos['id'],
+      descripcion: $datos['descripcion'],
+      activo: $datos['activo'],
+    );
+  }
 }

@@ -144,6 +144,7 @@ class Libro extends ModelBase
             'anio'=>$this->anio
         ];
     }
+
     static function deserializar(array $datos): ModelBase
     {
         return new Self(

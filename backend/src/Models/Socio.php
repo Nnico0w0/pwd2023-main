@@ -11,7 +11,7 @@ class Socio extends ModelBase
   private string $fecha_alta;
   private int $activo;
   private string $direccion;
-
+//! agregar telefono
 
   public function __construct(int $id, string $nombre_apellido, string $fecha_alta, int $activo, string $direccion)
   {
@@ -63,4 +63,28 @@ class Socio extends ModelBase
   {
     $this->direccion = $direccion;
   }
+
+  public function serializar(): array
+  {
+    return [
+      'id' =>$this->getId(),
+      'nombre_apellido' => $this->getNombreApellido(),
+      'fecha_alta' => $this->getFechaAlta(),
+      'activo' => $this->getActivo(),
+      'direccion' => $this->getDireccion()
+    ];
+  }
+
+  public function deserializar(array $datos): ModelBase
+  {
+    return new self(
+      id: $datos['id'] === null ? 0 : $datos['id'],
+      nombre_apellido: $datos['nombre_apellido'],
+      fecha_alta: $datos['fecha_alta'],
+      activo: $datos['activo'],
+      direccion: $datos['direccion']
+    );
+  }
+
+
 }
