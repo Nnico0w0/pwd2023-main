@@ -1,13 +1,13 @@
 <?php
 namespace Raiz\Bd;
-
+use Raiz\Auxi\Serializador;
 use Raiz\Models\Categoria;
 
 class CategoriaDAO implements InterfaceDAO{
 
 public static function listar(): array
 {
-$sql = 'SELECT * FROM categoria';
+$sql = 'SELECT * FROM categorias';
 $listaCategoria = ConectarBD::leer(sql: $sql);
 $categorias = [];
 foreach ($listaCategoria as $categoria) {
@@ -17,7 +17,7 @@ return $categorias;
 }
 public static function encontrarUno(string $id): ?Categoria
 {
-$sql = 'SELECT * FROM categoria WHERE id =:id;';
+$sql = 'SELECT * FROM categorias WHERE id =:id;';
 $categoria = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
 if (count($categoria) === 0) {
    return null;
@@ -30,7 +30,7 @@ if (count($categoria) === 0) {
 public static function crear(Serializador $instancia): void
 {
 $params = $instancia->serializar();
-$sql = 'INSERT INTO categoria (id, descripcion, activo) VALUES (:id, :descripcion, :activo)';
+$sql = 'INSERT INTO categorias (id, descripcion, activo) VALUES (:id, :descripcion, :activo)';
 ConectarBD::escribir(
     sql: $sql,
     params: [
@@ -44,7 +44,7 @@ ConectarBD::escribir(
 public static function actualizar(Serializador $instancia): void
 {
 $params = $instancia->serializar();
-$sql = 'UPDATE categoria SET descripcion =:descripcion WHERE id=:id';
+$sql = 'UPDATE categorias SET descripcion =:descripcion WHERE id=:id';
 ConectarBD::escribir(
     sql: $sql,
     params: [

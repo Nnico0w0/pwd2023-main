@@ -9,7 +9,7 @@ class Categoria extends ModelBase
     private int $activo;
 
 
-    public function __construct(int $id, string $descripcion, int $activo)
+    public function __construct(int $id, string $descripcion, int $activo = self::ACTIVO)
     {
         parent::__construct($id);
         $this->descripcion = $descripcion;
@@ -22,20 +22,10 @@ class Categoria extends ModelBase
         return $this->descripcion;
     }
 
-    public function getActivo(): int
-    {
-        return $this->activo;
-    }
-
     // Métodos setter
     public function setDescripcion(string $descripcion)
     {
         $this->descripcion = $descripcion;
-    }
-
-    public function setActivo(int $activo)
-    {
-        $this->activo = $activo;
     }
 
 
@@ -44,11 +34,11 @@ class Categoria extends ModelBase
     return [
       'id' =>$this->getId(),
       'descripcion' => $this->getDescripcion(),
-      'activo' => $this->getActivo(),
+      'activo' => $this->getEstado()
     ];
   }
 
-  public function deserializar(array $datos): ModelBase
+  public static function deserializar(array $datos): ModelBase
   {
     return new self(
       id: $datos['id'] === null ? 0 : $datos['id'],

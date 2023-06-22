@@ -42,7 +42,7 @@ class Persona extends ModelBase
     ];
   }
 
-  public function deserializar(array $datos): ModelBase
+  public static function deserializar(array $datos): ModelBase
   {
     return new self(
       dni: $datos['dni'],

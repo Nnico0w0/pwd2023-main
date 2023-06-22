@@ -25,6 +25,7 @@ $app->get('/apiv1/prestamos/{id}', function (Request $req, Response $res, array 
     $res->getBody()->write($payload);
     return $res->withHeader("Content-Type", "application/json");
 });
+
 $app->get('/apiv1/prestamos/{id}/diasretraso', function (Request $req, Response $res, array $args) {
     $payload = Json_Encode(PrestamoController::calcularDiasRetraso($args["id"]), JSON_PRETTY_PRINT);
     $res->getBody()->write("el libro tiene ");
@@ -32,17 +33,17 @@ $app->get('/apiv1/prestamos/{id}/diasretraso', function (Request $req, Response 
     $res->getBody()->write(" dias de retraso ");
     return $res->withHeader("Content-Type", "application/json");
 });
-
 $app->get('/apiv1/prestamos/{id}/librodevuelto', function (Request $req, Response $res, array $args) {
     $payload = Json_Encode(PrestamoController::verificarLibroDevuelvo($args["id"]), JSON_PRETTY_PRINT);
     $res->getBody()->write($payload);
     return $res->withHeader("Content-Type", "application/json");
 });
+
 // ---- Crear nuevo regitro ---- //
 
 
 $app->post('/apiv1/prestamos/nuevo', function (Request $req, Response $res, array $args) {
-    
+
     $payload = Json_Encode(PrestamoController::crear($req->getQueryParams()), JSON_PRETTY_PRINT);
     $res->getBody()->write($payload);
     return $res->withHeader("Content-Type", "application/json");

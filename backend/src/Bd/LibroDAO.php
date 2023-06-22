@@ -4,14 +4,14 @@ namespace Raiz\Bd;
 
 use Raiz\Models\Autor;
 use Raiz\Models\Libro;
-use Raiz\Aux\Serializador;
+use Raiz\Auxi\Serializador;
 use PDO;
 
 class LibroDAO implements InterfaceDAO
 {
     public static function listar(): array
     {
-        
+
         $sql = 'SELECT *  FROM  libros';
         $cnx = ConectarBD::conectar();
         $consulta = $cnx->prepare($sql);
@@ -23,22 +23,21 @@ class LibroDAO implements InterfaceDAO
             $libro['genero'] = GeneroDAO::encontrarUno($libro['id_genero']);
             $libro['editorial'] = EditorialDAO::encontrarUno($libro['id_editorial']);
             $libro['autor'][] = static::buscarEscritoresporLibro($libro["id"]);
-         
+
             $libros[] = Libro::deserializar($libro);
         }
-        
+
         return $libros;
     }
     public static function buscarEscritoresporLibro($id)
     {
         $sql = 'SELECT id_autor FROM autores_libros WHERE id_libro =:id;';
         $autores = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
-        
+
         if (count($autores) === 0) {
             return null;
         } else {
             return $autor[] =  AutorDAO::encontrarUno($autores[0]["id_autor"]);
-            
         }
     }
 
@@ -49,16 +48,16 @@ class LibroDAO implements InterfaceDAO
         if (count($libro) === 0) {
             return null;
         } else {
-            
+
             $libro[0]['categoria'] = CategoriaDAO::encontrarUno($libro[0]['id_categoria']);
             $libro[0]['genero'] = GeneroDAO::encontrarUno($libro[0]['id_genero']);
             $libro[0]['editorial'] = EditorialDAO::encontrarUno($libro[0]['id_editorial']);
             $autoresLibros[] = static::buscarEscritoresporLibro($libro[0]["id"]);
-           
+
             foreach ($autoresLibros as $autor) {
                 $libro[0]["autor"][] = $autor;
             }
-            
+
             $libro = Libro::deserializar($libro[0]);
             return $libro;
         }
@@ -81,7 +80,7 @@ class LibroDAO implements InterfaceDAO
                 ':id_editorial' => $params['editorial']->getId(),
             ]
         );
-        
+
         foreach ($params['autor'] as $autor) {
             $sql = 'INSERT INTO autores_libros (id_autor, id_libro) 
             VALUES ( :id_autor, :id_libro)';
@@ -107,7 +106,8 @@ class LibroDAO implements InterfaceDAO
             ]
         );
     }
-    public static function buscarUltimoLibro():int{
+    public static function buscarUltimoLibro(): int
+    {
         $sql = 'SELECT MAX(id) as id FROM libros ';
         $cnx = ConectarBD::conectar();
         $consulta = $cnx->prepare($sql);
@@ -118,10 +118,6 @@ class LibroDAO implements InterfaceDAO
         $consulta = $cnx->prepare($sql);
         $consulta->execute();
         return $consulta->fetchAll(PDO::FETCH_ASSOC)[0]["id"];
-       
-
-
-
     }
     public static function actualizarEstado(Serializador $instancia): void
     {

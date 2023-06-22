@@ -1,13 +1,13 @@
 <?php
 namespace Raiz\Bd;
-
+use Raiz\Auxi\Serializador;
 use Raiz\Models\Genero;
 
 class GeneroDAO implements InterfaceDAO{
 
 public static function listar(): array
 {
-$sql = 'SELECT * FROM genero';
+$sql = 'SELECT * FROM generos';
 $listaGenero = ConectarBD::leer(sql: $sql);
 $generos = [];
 foreach ($listaGenero as $genero) {
@@ -17,7 +17,7 @@ return $generos;
 }
 public static function encontrarUno(string $id): ?Genero
 {
-$sql = 'SELECT * FROM genero WHERE id =:id;';
+$sql = 'SELECT * FROM generos WHERE id =:id;';
 $genero = ConectarBD::leer(sql: $sql, params: [':id' => $id]);
 if (count($genero) === 0) {
    return null;
@@ -30,7 +30,7 @@ if (count($genero) === 0) {
 public static function crear(Serializador $instancia): void
 {
 $params = $instancia->serializar();
-$sql = 'INSERT INTO genero (id, descripcion, activo) VALUES (:id, :descripcion, :activo)';
+$sql = 'INSERT INTO generos (id, descripcion, activo) VALUES (:id, :descripcion, :activo)';
 ConectarBD::escribir(
     sql: $sql,
     params: [
@@ -44,7 +44,7 @@ ConectarBD::escribir(
 public static function actualizar(Serializador $instancia): void
 {
 $params = $instancia->serializar();
-$sql = 'UPDATE genero SET descripcion =:descripcion WHERE id=:id';
+$sql = 'UPDATE generos SET descripcion =:descripcion WHERE id=:id';
 ConectarBD::escribir(
     sql: $sql,
     params: [

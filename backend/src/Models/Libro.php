@@ -18,10 +18,6 @@ class Libro extends ModelBase
     private $categoria;
     private $cant_paginas;
     private $anio;
-    private $estado;
-    const ACTIVO = 'Activo';
-    const INACTIVO = 'Inactivo';
-    const PRESTADO = 'Prestado';
 
     public function __construct(
         $id,
@@ -32,18 +28,17 @@ class Libro extends ModelBase
         int $anio,
         Genero $genero,
         Categoria $categoria,
-        string $estado = self::ACTIVO
+        int $estado = self::ACTIVO
 
     ) {
-        parent::__construct($id);
+        parent::__construct($id, $estado);
         $this->titulo = $titulo;
         $this->editorial = $editorial;
-        $this->autor=$autorList;
+        $this->autor = $autorList;
         $this->genero = $genero;
         $this->cant_paginas = $cant_paginas;
         $this->anio = $anio;
         $this->categoria = $categoria;
-        $this->estado = $estado;
     }
 
     public function getTitulo(): string
@@ -72,17 +67,13 @@ class Libro extends ModelBase
     }
     public function getAutores(): array
     {
-        $listaAutores =[];
-        foreach($this->autor as $autor){
+        $listaAutores = [];
+        foreach ($this->autor as $autor) {
             $listaAutores = $autor->serializar();
         }
         return $listaAutores;
-        
     }
-    public function getEstado(): string
-    {
-        return $this->estado;
-    }
+
     //---- Setters ----//
     public function setTitulo(string $nuevoTitulo)
     {
@@ -116,32 +107,18 @@ class Libro extends ModelBase
         $this->cant_paginas = $nuevaCantidadPaginas;
     }
 
-    public function setEstado($nuevoEstado)
-    {
-        switch ($nuevoEstado) {
-            case $nuevoEstado === static::ACTIVO:
-                $this->estado = static::ACTIVO;
-                break;
-            case $nuevoEstado === static::INACTIVO:
-                $this->estado = static::INACTIVO;
-                break;
-            case $nuevoEstado === static::PRESTADO:
-                $this->estado = static::PRESTADO;
-        }
-    }
-
     public function serializar(): array
     {
         return [
             'id' => $this->getId(),
-            'titulo' => $this->titulo,
+            'titulo' => $this->getTitulo(),
             'autor' => $this->getAutores(),
             'editorial' => $this->editorial->serializar(),
-            'cant_paginas' => $this->cant_paginas,
+            'cant_paginas' => $this->getCant_Pag(),
             'genero' => $this->genero->serializar(),
             'categoria' => $this->categoria->serializar(),
-            'estado' => $this->estado,
-            'anio'=>$this->anio
+            'estado' => $this->getEstado(),
+            'anio' => $this->getAnio_Pub()
         ];
     }
 

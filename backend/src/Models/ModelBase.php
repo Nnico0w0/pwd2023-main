@@ -2,13 +2,18 @@
 
 namespace Raiz\Models;
 
-use Raiz\Aux\Serializador;
+use Raiz\Auxi\Serializador;
 use Error;
 
 abstract class ModelBase implements Serializador
 
 {   
+    const ACTIVO = 1;
+    const INACTIVO = 0;
+    const PRESTADO = 2;
+    private $estado;
     private $id;
+
     public function setId($id): mixed
     {
         if ($id === null) :
@@ -16,6 +21,20 @@ abstract class ModelBase implements Serializador
         else :
             return intVal($id);
         endif;
+    }
+
+    public function setEstado($nuevoEstado)
+    {
+        switch ($nuevoEstado) {
+            case $nuevoEstado === static::ACTIVO:
+                $this->estado = static::ACTIVO;
+                break;
+            case $nuevoEstado === static::INACTIVO:
+                $this->estado = static::INACTIVO;
+                break;
+            case $nuevoEstado === static::PRESTADO:
+                $this->estado = static::PRESTADO;
+        }
     }
 
     public function __construct(mixed $id)
@@ -27,13 +46,17 @@ abstract class ModelBase implements Serializador
     {
         return $this->id;
     }
+
+    public function getEstado(){
+        return $this->estado;
+    }
+
     /** @return mixed[] */
     public function serializar(): array
     {
         throw new Error('Serialización no implementada.');
     }
 
-    /** @param mixed[] $datos */
     public static function deserializar(array $datos): Self
     {
         throw new Error('Deserialización no implementada.');

@@ -6,19 +6,23 @@ namespace Raiz\Models;
 
 class Socio extends ModelBase
 {
-  private int $id;
   private string $nombre_apellido;
   private string $fecha_alta;
-  private int $activo;
+  private int $telefono;
   private string $direccion;
-//! agregar telefono
 
-  public function __construct(int $id, string $nombre_apellido, string $fecha_alta, int $activo, string $direccion)
+  public function __construct(
+    int $id, 
+    string $nombre_apellido, 
+    string $fecha_alta, 
+    int $estado = self::ACTIVO, 
+    int $telefono,
+    string $direccion)
   {
-    parent::__construct($id);
+    parent::__construct($id, $estado);
     $this->nombre_apellido = $nombre_apellido;
     $this->fecha_alta = $fecha_alta;
-    $this->activo = $activo;
+    $this->telefono = $telefono;
     $this->direccion = $direccion;
   }
 
@@ -33,9 +37,9 @@ class Socio extends ModelBase
     return $this->fecha_alta;
   }
 
-  public function getActivo(): int
+  public function getTelefono(): int
   {
-    return $this->activo;
+    return $this->telefono;
   }
 
   public function getDireccion(): string
@@ -54,9 +58,9 @@ class Socio extends ModelBase
     $this->fecha_alta = $fecha_alta;
   }
 
-  public function setActivo(int $activo)
+  public function setTelefono(int $telefono)
   {
-    $this->activo = $activo;
+    $this->telefono = $telefono;
   }
 
   public function setDireccion(string $direccion)
@@ -70,18 +74,20 @@ class Socio extends ModelBase
       'id' =>$this->getId(),
       'nombre_apellido' => $this->getNombreApellido(),
       'fecha_alta' => $this->getFechaAlta(),
-      'activo' => $this->getActivo(),
+      'estado' => $this->getEstado(),
+      'telefono' => $this->getTelefono(),
       'direccion' => $this->getDireccion()
     ];
   }
 
-  public function deserializar(array $datos): ModelBase
+  public static function deserializar(array $datos): ModelBase
   {
     return new self(
       id: $datos['id'] === null ? 0 : $datos['id'],
       nombre_apellido: $datos['nombre_apellido'],
       fecha_alta: $datos['fecha_alta'],
-      activo: $datos['activo'],
+      estado: $datos['estado'],
+      telefono: $datos['telefono'],
       direccion: $datos['direccion']
     );
   }

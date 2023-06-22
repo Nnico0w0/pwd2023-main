@@ -1,6 +1,7 @@
 <?php
 
 namespace Raiz\Models;
+
 use DateTime;
 
 class Prestamo extends ModelBase
@@ -8,10 +9,10 @@ class Prestamo extends ModelBase
     private int $id;
     private Socio $socio;
     private Libro $libro;
-    private $fecha_desde; 
+    private $fecha_desde;
     private $fecha_hasta;
     private ?string $fecha_dev = null;
-//!agregar self::ACTIVO y los demas en los metodos al igual que el atributo.
+
     public function __construct(int $id, Socio $socio, Libro $libro, string $fecha_desde, string $fecha_hasta, $fecha_dev)
     {
         parent::__construct($id);
@@ -22,7 +23,7 @@ class Prestamo extends ModelBase
         $this->fecha_dev = $fecha_dev;
     }
 
-    // Métodos getter
+    //? Métodos getter ------------------------------
 
     public function getSocio(): Socio
     {
@@ -49,7 +50,7 @@ class Prestamo extends ModelBase
         return $this->fecha_dev;
     }
 
-    // Métodos setter
+    //? Métodos setter -------------------------------
     public function setSocio(Socio $socio)
     {
         $this->socio = $socio;
@@ -99,32 +100,5 @@ class Prestamo extends ModelBase
         );
     }
 
-    public function diasRetraso(): int {
-        if ($this->fecha_dev === null) {
-            return 0;
-        }
-        $fechaActual = date_create('now');
-        $diasRetraso = date_diff($this->fecha_hasta,$fechaActual);
-        $diasRetraso = $diasRetraso->days;
-        if ($fechaActual < $this->fecha_hasta) {
-            return 0;
-        }else {
-            return $diasRetraso;
-        }
-    }
 
-    public function diasDeFalta(): int {
-        if ($this->fecha_dev === null) {
-            return 0; // El libro no ha sido devuelto, no hay falta
-        }
-        $fechaDevolucion = new DateTime($this->fecha_dev);
-        $diferencia = $this->fecha_hasta->diff($fechaDevolucion);
-        $diasFalta = $diferencia->days;
-
-        if ($diasFalta > 0) {
-            return $diasFalta; // Hay retraso en la devolución
-        } else {
-            return 0; // No hay retraso en la devolución
-        }
-    }
 }

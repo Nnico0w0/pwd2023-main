@@ -3,7 +3,7 @@
 namespace Raiz\Bd;
 use Raiz\Bd\InterfaceDao;
 use Raiz\Models\Autor;
-use Raiz\Aux\Serializador;
+use Raiz\Auxi\Serializador;
 
 class AutorDAO implements InterfaceDao{
 
@@ -38,7 +38,7 @@ class AutorDAO implements InterfaceDao{
             params: [
                 ':id' => $params['id'],
                 ':nombre_apellido' => $params['nombre_apellido'],
-                ':activo' => $params['activo']
+                ':activo' => Autor::ACTIVO
             ]
         );
     }
