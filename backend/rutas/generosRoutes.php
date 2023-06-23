@@ -3,6 +3,7 @@
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Raiz\Auxi\Utiles\Utileria;
 use Raiz\Controllers\GeneroController;
 
 
@@ -30,14 +31,16 @@ $app->get('/apiv1/generos/{id}', function (Request $req, Response $res, array $a
 
 $app->post('/apiv1/generos/nuevo', function (Request $req, Response $res, array $args) {
     var_dump($req->getQueryParams());
-    $payload = Json_Encode(GeneroController::crear($req->getQueryParams()), JSON_PRETTY_PRINT);
+        $request = Utileria::PasarAJson(file_get_contents('php://input'));
+    $payload = Json_Encode(GeneroController::crear($request), JSON_PRETTY_PRINT);
     $res->getBody()->write($payload);
     return $res->withHeader("Content-Type", "application/json");
 });
 
 // ---- Modificar registro existente ---- //
 $app->put('/apiv1/generos/{id}', function (Request $req, Response $res, array $args) {
-    $payload = Json_Encode(GeneroController::actualizar($req->getQueryParams()), JSON_PRETTY_PRINT);
+        $request = Utileria::PasarAJson(file_get_contents('php://input'));
+    $payload = Json_Encode(GeneroController::actualizar($request), JSON_PRETTY_PRINT);
     $res->getBody()->write($payload);
     return $res->withHeader("Content-Type", "application/json");
 });
