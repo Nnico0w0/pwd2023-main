@@ -3,7 +3,7 @@
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Raiz\Auxi\Utiles\Utileria;
+use Raiz\Auxi\Utileria;
 use Raiz\Controllers\CategoriaController;
 
 

@@ -35,7 +35,6 @@ CREATE TABLE public.socios (
 	id serial4 NOT NULL,
 	nombre_apellido varchar(50) NOT NULL,
 	fecha_alta date NOT NULL,
-	activo int4 NOT NULL,
 	direccion varchar(100) NOT NULL,
 	telefono int4 NULL,
 	CONSTRAINT pk_socios PRIMARY KEY (id)
@@ -139,3 +138,4 @@ CREATE SEQUENCE public.socios_id_seq
 	START 1
 	CACHE 1
 	NO CYCLE;-- public.autores definition
+
