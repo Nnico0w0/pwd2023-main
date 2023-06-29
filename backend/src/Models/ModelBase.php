@@ -11,16 +11,16 @@ abstract class ModelBase implements Serializador
     const ACTIVO = 1;
     const INACTIVO = 0;
     const PRESTADO = 2;
-    private $estado;
+    private $estado = self::ACTIVO;
     private $id;
 
     public function setId($id): mixed
     {
-        if ($id === null) :
+         if ($id === null) :
             return 0;
         else :
             return intVal($id);
-        endif;
+        endif; 
     }
 
     public function setEstado($nuevoEstado)
@@ -37,12 +37,12 @@ abstract class ModelBase implements Serializador
         }
     }
 
-    public function __construct(mixed $id)
+    public function __construct( $id)
     {
         $this->id=$this->setId($id);
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }

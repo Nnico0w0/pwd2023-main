@@ -11,7 +11,7 @@ export default {
                 direccion: "",
                 telefono: "",
                 fecha_alta: new Date().toISOString().substring(0, 10),
-                activo: 1,
+                estado: "",
             }
 
         }
@@ -24,7 +24,7 @@ export default {
                 nombre_apellido: this.Socio.nombre_apellido,
                 direccion: this.Socio.direccion,
                 telefono: this.Socio.telefono,
-                activo: this.Socio.activo,
+                estado: this.Socio.estado,
                 fecha_alta: this.Socio.fecha_alta
             }
           
