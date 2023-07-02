@@ -1,3 +1,4 @@
+
 <template>
   <h1>listado de Socios</h1>
 
@@ -100,6 +101,7 @@
     </tbody>
   </table>
   
+  </template>
 <script lang="ts">
 import axios from 'axios';
 import Boton from '../Boton.vue';
