@@ -48,6 +48,10 @@ export default {
     <input v-model=Socio.nombre_apellido type="text" label='nombre y apellido' placeholder="apellido y nombre">
     <input v-model=Socio.telefono type="text" label='Telefono' placeholder="telefono">
     <input v-model=Socio.direccion type="text" label='direccion' placeholder="Direccion">
+    <select v-model=Socio.estado name="select_activo" id="select_activo">
+    <option value='1'>Activos</option>
+    <option value='0'>Inactivos</option>
+  </select>
 
     <button @click="crearSocio()">guardar</button>
     <router-link :to='{name:"Socios"}'><button>Volver</button></router-link>

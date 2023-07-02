@@ -27,7 +27,7 @@
       <tr v-for="socio in items" :key="socio">
 
         <template v-if=" activo  === 'activo'">
-          <template v-if='socio.activo === 1'>
+          <template v-if='socio.estado === 1'>
             <td>{{ socio.id }}</td>
             <td>{{ socio.nombre_apellido }}</td>
             <td>{{ socio.fecha_alta }}</td>
@@ -50,7 +50,7 @@
       </template>
       </template>
       <template v-if=" activo  === 'inactivo'">
-          <template v-if='socio.activo === 0'>
+          <template v-if='socio.estado === 0'>
             <td>{{ socio.id }}</td>
             <td>{{ socio.nombre_apellido }}</td>
             <td>{{ socio.fecha_alta }}</td>
@@ -99,8 +99,7 @@
 
     </tbody>
   </table>
-</template>
-
+  
 <script lang="ts">
 import axios from 'axios';
 import Boton from '../Boton.vue';

@@ -55,6 +55,8 @@ ConectarBD::escribir(
 }
 public static function borrar(string $id)
 {
+    $sql = 'DELETE FROM generos WHERE id=:id';
+    ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
 }
 
 }

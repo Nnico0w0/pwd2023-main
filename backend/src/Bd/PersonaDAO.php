@@ -58,5 +58,7 @@ class PersonaDAO implements InterfaceDAO
     }
     public static function borrar(string $dni)
     {
+        $sql = 'DELETE FROM Personas WHERE id=:id';
+        ConectarBD::escribir(sql: $sql, params: [':dni' => $dni]);
     }
 }

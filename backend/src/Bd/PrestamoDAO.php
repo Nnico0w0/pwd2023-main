@@ -93,6 +93,8 @@ class PrestamoDAO implements InterfaceDAO
 
     public static function borrar(string $id)
     {
+        $sql = 'DELETE FROM prestamos WHERE id=:id';
+        ConectarBD::escribir(sql: $sql, params: [':id' => $id]);
     }
     
     public static function libroDevuelto(string $idLibro){
