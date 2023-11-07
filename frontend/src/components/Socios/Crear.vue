@@ -30,8 +30,8 @@ export default {
           
             console.log(socio)     
             await axios.post('http://127.0.0.1:8000/apiv1/socios/nuevo', socio).
-            then((response)=>{
-                console.log(response.data)
+                then(() => {
+
                 this.$router.push('/socios')
             })
             .catch()

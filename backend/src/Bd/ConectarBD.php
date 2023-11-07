@@ -12,7 +12,7 @@ final class ConectarBD
     public static function conectar(): PDO
     {
 
-         $db = $_ENV['DB_NAME'];
+        $db = $_ENV['DB_NAME'];
         $port = $_ENV['DB_PORT'];
         $host = $_ENV['DB_HOST'];
         $conexion = "pgsql:host=$host; port=$port; dbname=$db";

@@ -1,11 +1,13 @@
 <?php
 
 namespace Raiz\Bd;
-use Raiz\Bd\InterfaceDao;
+
+use Raiz\Bd\InterfaceDAO;
 use Raiz\Models\Autor;
 use Raiz\Auxi\Serializador;
 
-class AutorDAO implements InterfaceDao{
+class AutorDAO implements InterfaceDAO
+{
 
         public static function listar(): array
     {
@@ -32,13 +34,12 @@ class AutorDAO implements InterfaceDao{
     public static function crear(Serializador $instancia): void
     {
         $params = $instancia->serializar();
-        $sql = 'INSERT INTO autores (id, nombre_apellido, activo) VALUES (:id, :nombre_apellido, :activo)';
+        $sql = 'INSERT INTO autores ( nombre_apellido, activo) VALUES (:nombre_apellido, :activo)';
         ConectarBD::escribir(
             sql: $sql,
             params: [
-                ':id' => $params['id'],
                 ':nombre_apellido' => $params['nombre_apellido'],
-                ':activo' => Autor::ACTIVO
+                ':activo' => $params['estado']
             ]
         );
     }

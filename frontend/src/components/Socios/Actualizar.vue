@@ -24,7 +24,10 @@ export default {
     methods: {
         async ActualizarSocio(Socio ){
             console.log(Socio);
-                      const res = await axios.put('http://127.0.0.1:8000/apiv1/socios/'+this.$route.params.id, Socio)
+            console.log(this.$route.params.id);
+            await axios.put('http://127.0.0.1:8000/apiv1/socios/' + Socio.id, Socio)
+                .then(() => { this.$router.push("/socios") })
+                .catch((e) => { alert(e) })
                         
             
         },

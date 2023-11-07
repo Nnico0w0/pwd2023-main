@@ -20,6 +20,7 @@ export default {
       <router-link to="/">Inicio</router-link>
       <router-link to="/about">acerca de</router-link>
       <router-link to="/socios">Socios</router-link>
+      <router-link to="/libros">Libros</router-link>
     </div>
     </nav>
  
